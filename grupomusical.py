@@ -4,9 +4,7 @@ from datetime import date
 from abc import ABC, abstractmethod
 
 
-# -------------------------
-# ENUM TIPO EVENTO
-# -------------------------
+
 class TipoEvento(Enum):
 
     FIESTA_15 = "Fiesta de 15"
@@ -14,9 +12,9 @@ class TipoEvento(Enum):
     CONCIERTO = "Concierto"
 
 
-# -------------------------
+
 # CLASE ABSTRACTA INSTRUMENTO
-# -------------------------
+
 class Instrumento(ABC):
 
     def __init__(self, nombre):
@@ -31,9 +29,9 @@ class Instrumento(ABC):
         pass
 
 
-# -------------------------
+
 # INSTRUMENTOS
-# -------------------------
+
 class Guitarra(Instrumento):
 
     def __init__(self):
@@ -82,9 +80,9 @@ class Piano(Instrumento):
         print("Tocando Piano con teclas")
 
 
-# -------------------------
+
 # CLASE MUSICO
-# -------------------------
+
 class Musico:
 
     def __init__(self, nombre, instrumento):
@@ -97,9 +95,9 @@ class Musico:
         self.asistira = True
 
 
-# -------------------------
+
 # CLASE EVENTO
-# -------------------------
+
 class Evento:
 
     def __init__(self, tipo, fecha, lugar, asistentes):
@@ -135,16 +133,17 @@ class Evento:
             print()
 
 
-# -------------------------
-# PROGRAMA PRINCIPAL
-# -------------------------
 
-instrumentos_disponibles = {
-    1: Guitarra,
-    2: Flauta,
-    3: Ukelele,
-    4: Piano
-}
+
+# Lista de clases de instrumentos
+instrumentos_disponibles = [Guitarra, Flauta, Ukelele, Piano]
+
+# Lista de nombres automáticos
+nombres = [
+    "Carlos", "Ana", "Luis", "Sofía", "Mateo",
+    "Valentina", "Juan", "Camila", "Andrés", "Laura",
+    "Diego", "Mariana", "Sebastián", "Paula", "David"
+]
 
 # Número aleatorio de músicos
 cantidad_musicos = random.randint(3, 15)
@@ -159,30 +158,11 @@ musicos = []
 
 for i in range(cantidad_musicos):
 
-    print("\n----------------------------")
+    nombre = random.choice(nombres) + f"_{i+1}"
 
-    nombre = input(f"Nombre del músico {i+1}: ")
-
-    while True:
-
-        print("\nInstrumentos disponibles")
-        print("1. Guitarra")
-        print("2. Flauta")
-        print("3. Ukelele")
-        print("4. Piano")
-
-        try:
-            opcion = int(input("Seleccione instrumento (1-4): "))
-        except:
-            print("Ingrese un número válido")
-            continue
-
-        if opcion not in instrumentos_disponibles:
-            print("Instrumento no válido")
-            continue
-
-        instrumento = instrumentos_disponibles[opcion]()
-        break
+    # Instrumento aleatorio
+    instrumento_clase = random.choice(instrumentos_disponibles)
+    instrumento = instrumento_clase()
 
     musico = Musico(nombre, instrumento)
     musico.confirmar_asistencia()
